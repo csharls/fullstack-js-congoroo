@@ -18,11 +18,18 @@ const Statistics = ({good, neutral, bad}) => {
   )
 }
 
+const NoStatisticsAdvice = () => <p><strong>No feedback given</strong></p>
+
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  let showStatistics = false
+
+  if(good!==0 || neutral!==0 || bad!==0 ) {
+    showStatistics = true
+  }
 
   const goodClickHandler = ()=>{
     setGood(prevGood => prevGood +1)
@@ -39,7 +46,10 @@ const App = () => {
       <button onClick={goodClickHandler}>good</button>
       <button onClick={neutralClickHandler}>neutral</button>
       <button onClick={badClickHandler}>bad</button>
-      <Statistics good={good} neutral={neutral} bad={bad}/>
+      { showStatistics
+       ? <Statistics good={good} neutral={neutral} bad={bad}/> 
+       : <NoStatisticsAdvice></NoStatisticsAdvice>
+      }
     </div>
   )
 }

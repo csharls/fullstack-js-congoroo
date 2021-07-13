@@ -8,9 +8,14 @@ const Button = ({handlerClick, text}) => (
   )
 
 const Statistics = ({text,value}) =>  (
-  <div>
-    <p>{text} {value} {text.includes("positive")?'%':''}</p>
-  </div>
+    <tr>
+      <td>
+        { text }
+      </td>
+      <td>
+        {value} {text.includes("positive")?'%':''}
+      </td>
+    </tr>
 )
 
 const NoStatisticsAdvice = () => <p><strong>No feedback given</strong></p>
@@ -48,13 +53,17 @@ const App = () => {
       <Button handlerClick={badClickHandler} text="bad"/>
       { showStatistics
        ? <div>
-         <Title text="Statistics"/>
-         <Statistics text="good" value={good}/> 
-         <Statistics text="neutral" value={neutral}/> 
-         <Statistics text="bad" value={bad}/> 
-         <Statistics text="all" value={sumAll}/> 
-         <Statistics text="average" value={average}/> 
-         <Statistics text="positive" value={positive}/> 
+          <Title text="Statistics"/>
+          <table>
+            <tbody>
+              <Statistics text="good" value={good}/> 
+              <Statistics text="neutral" value={neutral}/> 
+              <Statistics text="bad" value={bad}/> 
+              <Statistics text="all" value={sumAll}/> 
+              <Statistics text="average" value={average}/> 
+              <Statistics text="positive" value={positive}/> 
+            </tbody>
+          </table>
          </div>
        : <NoStatisticsAdvice></NoStatisticsAdvice>
       }

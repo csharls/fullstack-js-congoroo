@@ -1,22 +1,17 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const Statistics = ({good, neutral, bad}) => {
-  const sumAll = good+neutral+bad
-  const average = sumAll? (good-bad)/sumAll : 0
-  const positive = sumAll? good/sumAll * 100 : 0
+const Title = ({text}) => <h1>{ text }</h1>
 
-  return (
-    <div>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all { sumAll }</p>
-      <p>average {average }</p>
-      <p>positive { positive } %</p>
-    </div>
+const Button = ({handlerClick, text}) => (
+  <button onClick={ handlerClick }>{ text }</button>
   )
-}
+
+const Statistics = ({text,value}) =>  (
+  <div>
+    <p>{text} {value} {text.includes("positive")?'%':''}</p>
+  </div>
+)
 
 const NoStatisticsAdvice = () => <p><strong>No feedback given</strong></p>
 
@@ -25,7 +20,12 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+
   let showStatistics = false
+
+  const sumAll = good+neutral+bad
+  const average = sumAll? (good-bad)/sumAll : 0
+  const positive = sumAll? good/sumAll * 100 : 0
 
   if(good!==0 || neutral!==0 || bad!==0 ) {
     showStatistics = true
@@ -42,12 +42,20 @@ const App = () => {
   }
   return (
     <div>
-      <h1>Give feedback</h1>
-      <button onClick={goodClickHandler}>good</button>
-      <button onClick={neutralClickHandler}>neutral</button>
-      <button onClick={badClickHandler}>bad</button>
+      <Title text="Give feedback"/>
+      <Button handlerClick={goodClickHandler} text="good"/>
+      <Button handlerClick={neutralClickHandler} text="neutral"/>
+      <Button handlerClick={badClickHandler} text="bad"/>
       { showStatistics
-       ? <Statistics good={good} neutral={neutral} bad={bad}/> 
+       ? <div>
+         <Title text="Statistics"/>
+         <Statistics text="good" value={good}/> 
+         <Statistics text="neutral" value={neutral}/> 
+         <Statistics text="bad" value={bad}/> 
+         <Statistics text="all" value={sumAll}/> 
+         <Statistics text="average" value={average}/> 
+         <Statistics text="positive" value={positive}/> 
+         </div>
        : <NoStatisticsAdvice></NoStatisticsAdvice>
       }
     </div>

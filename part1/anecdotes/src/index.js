@@ -32,7 +32,7 @@ const App = (props) => {
 
   const randNumber = () => {
     const rand = Math.random()
-    return rand <= 0.5 ? Math.round(rand*10) : randNumber()
+    return Math.round(rand*5)
     }
 
   const mostVoted = Math.max(...votes);

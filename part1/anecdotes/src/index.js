@@ -4,10 +4,18 @@ import ReactDOM from 'react-dom'
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(Array(6).fill(0))
 
   const nextClickHandler = ()=>{
     const number = randNumber()
     setSelected(number)
+  }
+
+  const voteClickHandler = () => {
+    const vote = [...votes]
+    vote[selected]+=1
+    console.log(vote);
+    setVotes(vote)
   }
 
   const randNumber = () => {
@@ -17,8 +25,14 @@ const App = (props) => {
 
   return (
     <div>
-      { props.anecdotes[selected] }
+      <p>
+        { props.anecdotes[selected] }
+      </p>
+      <p>
+        {`This anecdote has ${votes[selected]} votes`}
+      </p>
       <button onClick={ nextClickHandler }>next anecdote</button>
+      <button onClick = { voteClickHandler }>Vote</button>
     </div>
   )
 }

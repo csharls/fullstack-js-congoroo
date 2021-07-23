@@ -6,18 +6,32 @@ const App = () => {
   ]) 
   const [ newName, setNewName ] = useState('')
 
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    const newPerson = {
-      name: newName
+
+    const duplicated = nameVerify(newName)
+    if(duplicated){
+      alert(`${newName} is already added to phonebook`)
     }
-    setPersons(prevPersons => prevPersons.concat(newPerson))
+    else{
+      const newPerson = {
+        name: newName
+      }
+      setPersons(prevPersons => prevPersons.concat(newPerson))
+    }
     setNewName('')
+
   }
 
   const handleChange = (e) => {
     setNewName(e.target.value)
   }
+
+  const nameVerify = (name) => {
+    return persons.find( p => p.name === name)
+  }
+
 
   return (
     <div>

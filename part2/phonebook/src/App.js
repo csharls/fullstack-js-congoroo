@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import Filter from './Filter.js'
 import PersonForm from './PersonForm.js'
+import Persons from './Persons.js'
 const App = () => {
   const [ persons, setPersons ] = useState([
     { name: 'Arto Hellas', number: '040-123456' },
@@ -58,13 +59,7 @@ const App = () => {
       <PersonForm handleSubmit={handleSubmit} handleNameChange={handleNameChange} handlePhoneChange={handlePhoneChange} name={newName} phone={newPhone}></PersonForm>
 
       <h3>Numbers</h3>
-
-      {persons.filter(
-        p=> p.name.toLowerCase().includes(searchText)
-      )
-      .map(
-        ({name}) => <p key={name}>{name}</p>
-      )}
+      <Persons persons={persons} searchText={searchText}/>
     </div>
   )
 }

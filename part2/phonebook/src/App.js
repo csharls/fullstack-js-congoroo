@@ -1,15 +1,19 @@
-import React, { useState } from 'react'
+
+import React, { useState, useEffect } from 'react'
+
+
 
 import Filter from './Filter.js'
 import PersonForm from './PersonForm.js'
 import Persons from './Persons.js'
+import { getAllPersons } from './services/persons/persons.js'
 const App = () => {
-  const [ persons, setPersons ] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ]) 
+  const [ persons, setPersons ] = useState([]) 
+
+  useEffect(()=>{
+    getAllPersons()
+    .then(persons => setPersons(persons))
+  },[])
 
   const [ newName, setNewName ] = useState('')
 

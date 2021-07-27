@@ -1,8 +1,8 @@
 import React from 'react'
 
-const CountryDisplay = ({props:{name}={}}) => <p>{name}</p>
+export const CountryDisplay = ({data:{name}, onClick}) => <p>{name} <button value ={name} onClick={onClick}>show</button></p>
 
-const DisplaySingleCountry = ({c}) => {
+export const DisplaySingleCountry = ({c}) => {
   return (
     <div>
       <h1>{c.name}</h1>
@@ -21,21 +21,3 @@ const DisplaySingleCountry = ({c}) => {
     </div>
   )
 }
-
-
-const CountiesList = ({countries}={}) => {
- 
-return (
-  <div>
-    { 
-      countries.lenght > 1
-      ? countries.map(
-        c => <CountryDisplay key={c.name} props={c} />
-      )
-      :<DisplaySingleCountry c={countries[0]} />
-    }
-  </div>
-  )
-}
-
-export default CountiesList

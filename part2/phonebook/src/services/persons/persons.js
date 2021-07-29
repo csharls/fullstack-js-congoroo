@@ -7,3 +7,11 @@ export const getAllPersons = () => {
     return data
   })
 }
+
+export const savePerson = ( newObject ) => {
+  return axios.post('http://localhost:3001/persons', newObject)
+  .then( res => {
+    const {data} = res
+    return data
+  })
+}

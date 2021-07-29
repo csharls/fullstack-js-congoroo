@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react'
 import Filter from './Filter.js'
 import PersonForm from './PersonForm.js'
 import Persons from './Persons.js'
-import { getAllPersons } from './services/persons/persons.js'
+import { getAllPersons, savePerson } from './services/persons/persons.js'
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
 
@@ -35,7 +35,10 @@ const App = () => {
         name: newName,
         number: newPhone
       }
-      setPersons(prevPersons => prevPersons.concat(newPerson))
+      savePerson(newPerson)
+      .then(
+        person => setPersons(prevPersons => prevPersons.concat(person))
+      )
     }
     setNewName('')
     setNewName('')

@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react'
 import Filter from './Filter.js'
 import PersonForm from './PersonForm.js'
 import Persons from './Persons.js'
-import { getAllPersons, savePerson, deletePerson} from './services/persons/persons.js'
+import { getAllPersons, savePerson, deletePerson, updatePerson} from './services/persons/persons.js'
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
 
@@ -28,7 +28,16 @@ const App = () => {
     const duplicated = persons.find( p => p.name === newName)
 
     if(duplicated){
-      alert(`${newName} is already added to phonebook`)
+      const modify =window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
+     if(modify) {
+       const person = {number: newPhone}
+       updatePerson(person, duplicated.id)
+       .then(
+         person => setPersons(prevPersons => prevPersons.map(
+           p => p.id !== person.id ? p : person
+         ))
+       )
+     }
     }
     else{
       const newPerson = {

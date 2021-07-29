@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react'
 import Filter from './Filter.js'
 import PersonForm from './PersonForm.js'
 import Persons from './Persons.js'
-import { getAllPersons, savePerson } from './services/persons/persons.js'
+import { getAllPersons, savePerson, deletePerson} from './services/persons/persons.js'
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
 
@@ -56,6 +56,19 @@ const App = () => {
   const handleSearch = (e) => {
     setSearchText(e.target.value)
   }
+  const handleClick = (e) => {
+    const id = parseInt(e.target.value)
+    const {name} = persons.filter(p=>p.id===id)[0]
+
+    const result = window.confirm(`Delete ${name}?`);
+    if(result){
+      deletePerson(id)
+      .then( person => setPersons(persons.filter(p => p.id!==person.id)))
+      .catch(err =>{
+        alert('something wrong happened!')
+      })
+    }
+  }
 
 
   return (
@@ -66,7 +79,7 @@ const App = () => {
       <PersonForm handleSubmit={handleSubmit} handleNameChange={handleNameChange} handlePhoneChange={handlePhoneChange} name={newName} phone={newPhone}></PersonForm>
 
       <h3>Numbers</h3>
-      <Persons persons={persons} searchText={searchText}/>
+      <Persons persons={persons} searchText={searchText} handler={handleClick}/>
     </div>
   )
 }

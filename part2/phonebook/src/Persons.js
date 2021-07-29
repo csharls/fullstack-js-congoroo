@@ -1,16 +1,19 @@
 const Person = ({ name, number }) => (
-  <p key={name}>
+  <span>
     {name} {number}
-  </p>
+  </span>
 );
 
-const Persons = ({ persons, searchText }) => {
+const Persons = ({ persons, searchText, handler }) => {
   return (
     <div>
       {persons
         .filter((p) => p.name.toLowerCase().includes(searchText))
         .map((p) => (
-          <Person name={p.name} number={p.number} />
+          <p key={p.id}>
+          <Person  name={p.name} number={p.number} />
+          <button onClick={handler} value={p.id}>delete</button>
+          </p>
         ))}
     </div>
   );

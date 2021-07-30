@@ -20,10 +20,9 @@ export const savePerson = ( newObject ) => {
 
 export const deletePerson = (id) => {
   return axios.delete(`${baseUrl}/${id}`)
-  .then(
-    res => {
-      const{data} = res
-      return data
+  .then(res => {
+      const{status} = res
+      return status
     }
   )
 }

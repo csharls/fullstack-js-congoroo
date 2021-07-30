@@ -6,8 +6,10 @@
  - React components
  - State
  - fetching data asynchronous
+ - HTTP verbs
 
  # Technologies
  - React
  - Axios
  - Json-server
+ - CSS

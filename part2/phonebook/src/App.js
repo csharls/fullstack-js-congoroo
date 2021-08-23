@@ -71,6 +71,9 @@ const App = () => {
           fillAppMessage('success', `Contact ${newName} was added to the contact list` )
         }
       )
+      .catch(error => {
+        fillAppMessage('error', error.response.data )
+      })
     }
     setNewName('')
     setNewName('')
@@ -89,7 +92,7 @@ const App = () => {
     setSearchText(e.target.value)
   }
   const handleClick = (e) => {
-    const id = parseInt(e.target.value)
+    const id = e.target.value
     const {name} = persons.filter(p=>p.id===id)[0]
 
     const result = window.confirm(`Delete ${name}?`);
@@ -105,8 +108,8 @@ const App = () => {
           fillAppMessage('success', `Contact ${name} was remove from server` )
         }
       )
-      .catch(err =>{
-        fillAppMessage('error', `Something wrong happened...` )
+      .catch(error => {
+        fillAppMessage('error', error.response.data )
       })
     }
   }
